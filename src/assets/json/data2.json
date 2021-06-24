@@ -1,0 +1,21 @@
+{
+    "data": [
+        12,
+        6,
+        4,
+        18,
+        26,
+        54,
+        20
+    ],
+    "seriesLabel": "Data 2",
+    "axisLabels": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+    ]
+}

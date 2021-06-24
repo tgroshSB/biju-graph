@@ -1,30 +1,32 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTable } from '@angular/material/table';
-import { DataTableDataSource, DataTableItem } from './data-table-datasource';
+import { OnInit, Component, Input, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { DataTableItem } from './data-table-datasource';
 
 @Component({
   selector: 'app-data-table',
   templateUrl: './data-table.component.html',
   styleUrls: ['./data-table.component.scss']
 })
-export class DataTableComponent implements AfterViewInit {
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+export class DataTableComponent implements OnInit, OnChanges {
   @ViewChild(MatTable) table!: MatTable<DataTableItem>;
-  dataSource: DataTableDataSource;
+  @Input() data: DataTableItem[] = [];
+  matDataSource: MatTableDataSource<DataTableItem>;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
+  displayedColumns = ['label', 'value'];
 
   constructor() {
-    this.dataSource = new DataTableDataSource();
+    this.matDataSource = new MatTableDataSource<DataTableItem>(this.data);
   }
 
-  ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-    this.table.dataSource = this.dataSource;
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.data.currentValue !== changes.data.previousValue) {
+      this.matDataSource.data = this.data;
+    }
+  }
+
+  ngOnInit(): void {
+    this.matDataSource.data = this.data;
   }
 }
+

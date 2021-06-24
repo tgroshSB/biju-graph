@@ -1,0 +1,13 @@
+{
+    "data": [
+        225,
+        1005,
+        640
+    ],
+    "seriesLabel": "Data 3",
+    "axisLabels": [
+        "Donations",
+        "Subtractions",
+        "Inputs"
+    ]
+}

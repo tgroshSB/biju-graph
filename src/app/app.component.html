@@ -1,7 +1,6 @@
 <h3>Basic Graph</h3>
 <router-outlet></router-outlet>
 
-
 <mat-card>
   <mat-form-field appearance="outline">
     <mat-label>Select a data source</mat-label>
@@ -12,9 +11,11 @@
     </mat-select>
   </mat-form-field>
 
-  <div *ngIf="barChartData" style="display: block; height: 400px; width: 400px;">
+  <div *ngIf="currentDataSource" style="display: block; width: 640px;">
     <canvas baseChart chartType="bar" [legend]="true" [datasets]="barChartData" [labels]="barChartLabels"
       [options]="barChartOptions">
     </canvas>
   </div>
+
+  <app-data-table *ngIf="currentDataSource" [data]="dataTable"></app-data-table>
 </mat-card>
