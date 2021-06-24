@@ -1,8 +1,20 @@
-Basic Graph
+<h3>Basic Graph</h3>
 <router-outlet></router-outlet>
 
 
-<div *ngIf="barChartData" style="display: block; height: 400px; width: 400px;">
-    <canvas baseChart chartType="bar" [legend]="true" [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions">
+<mat-card>
+  <mat-form-field appearance="outline">
+    <mat-label>Select a data source</mat-label>
+    <mat-select [(ngModel)]="currentDataSource" (selectionChange)="onDataSelectChange($event)">
+      <mat-option value="data1.json">Data 1</mat-option>
+      <mat-option value="data2.json">Data 2</mat-option>
+      <mat-option value="data3.json">Data 3</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div *ngIf="barChartData" style="display: block; height: 400px; width: 400px;">
+    <canvas baseChart chartType="bar" [legend]="true" [datasets]="barChartData" [labels]="barChartLabels"
+      [options]="barChartOptions">
     </canvas>
-</div>
+  </div>
+</mat-card>

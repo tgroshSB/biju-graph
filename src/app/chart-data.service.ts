@@ -9,7 +9,7 @@ export class ChartDataService {
 
   constructor(private httpService: HttpClient) { }
 
-  public getData(): Observable<any> {
-    return this.httpService.get('assets/json/data1.json');
+  public getData(url: string): Observable<any> {
+    return this.httpService.get('assets/json/' + url);
   }
 }
