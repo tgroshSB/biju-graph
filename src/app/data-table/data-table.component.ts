@@ -1,4 +1,6 @@
-import { OnInit, Component, Input, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
+import { OnInit, Component, Input, ViewChild, OnChanges, SimpleChanges, AfterViewInit } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { DataTableItem } from './data-table-datasource';
 
@@ -7,7 +9,9 @@ import { DataTableItem } from './data-table-datasource';
   templateUrl: './data-table.component.html',
   styleUrls: ['./data-table.component.scss']
 })
-export class DataTableComponent implements OnInit, OnChanges {
+export class DataTableComponent implements OnInit, OnChanges, AfterViewInit {
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatTable) table!: MatTable<DataTableItem>;
   @Input() data: DataTableItem[] = [];
   matDataSource: MatTableDataSource<DataTableItem>;
@@ -18,6 +22,11 @@ export class DataTableComponent implements OnInit, OnChanges {
   constructor() {
     this.matDataSource = new MatTableDataSource<DataTableItem>(this.data);
   }
+  ngAfterViewInit(): void {
+    this.matDataSource.paginator = this.paginator;
+    this.matDataSource.sort = this.sort;
+    this.matDataSource.data = this.data;
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.data.currentValue !== changes.data.previousValue) {
@@ -26,7 +35,7 @@ export class DataTableComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.matDataSource.data = this.data;
+
   }
 }
 
