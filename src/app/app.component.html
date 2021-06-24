@@ -1,2 +1,14 @@
 Basic Graph
 <router-outlet></router-outlet>
+
+
+<div style="display: block; height: 400px; width: 400px;">
+    <canvas baseChart
+        [datasets]="barChartData"
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [plugins]="barChartPlugins"
+        [legend]="barChartLegend"
+        [chartType]="barChartType">
+      </canvas>
+  </div>
