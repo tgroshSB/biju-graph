@@ -3,12 +3,6 @@ Basic Graph
 
 
 <div style="display: block; height: 400px; width: 400px;">
-    <canvas baseChart
-        [datasets]="barChartData"
-        [labels]="barChartLabels"
-        [options]="barChartOptions"
-        [plugins]="barChartPlugins"
-        [legend]="barChartLegend"
-        [chartType]="barChartType">
-      </canvas>
-  </div>
+    <canvas baseChart chartType="bar" [legend]="true" [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions">
+    </canvas>
+</div>
