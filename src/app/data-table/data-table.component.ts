@@ -14,6 +14,7 @@ export class DataTableComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatTable) table!: MatTable<DataTableItem>;
   @Input() data: DataTableItem[] = [];
+  @Input() filter: string = "";
   matDataSource: MatTableDataSource<DataTableItem>;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
@@ -29,8 +30,12 @@ export class DataTableComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.data.currentValue !== changes.data.previousValue) {
+    if (changes.data && changes.data.currentValue !== changes.data.previousValue) {
       this.matDataSource.data = this.data;
+    }
+    if (changes.filter && changes.filter.currentValue !== changes.filter.previousValue) {
+      this.matDataSource.paginator?.firstPage();
+      this.matDataSource.filter = this.filter;
     }
   }
 
