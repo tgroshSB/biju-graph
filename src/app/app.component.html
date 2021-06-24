@@ -11,16 +11,11 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Filter</mat-label>
-    <input matInput (keyup)="onFilterChange($event)" placeholder="Filter" #input>
-  </mat-form-field>
-
   <div *ngIf="currentDataSource" style="display: block; width: 640px;">
     <canvas baseChart chartType="bar" [legend]="true" [datasets]="barChartData" [labels]="barChartLabels"
       [options]="barChartOptions">
     </canvas>
   </div>
 
-  <app-data-table *ngIf="currentDataSource" [data]="dataTable" [filter]="filterValue"></app-data-table>
+  <app-data-table *ngIf="currentDataSource" [data]="dataTable"></app-data-table>
 </mat-card>

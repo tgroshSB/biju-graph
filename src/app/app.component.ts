@@ -20,7 +20,6 @@ export class AppComponent implements OnInit {
   public barChartData: ChartDataSets[] = [{ data: [], label: '' }];
 
   public currentDataSource: string = "";
-  public filterValue: string = "";
   public dataTable: DataTableItem[] = [];
 
   constructor(private chartDataService: ChartDataService) {
@@ -45,10 +44,6 @@ export class AppComponent implements OnInit {
         }
       );
     }
-  }
-
-  onFilterChange(event: Event) {
-    this.filterValue = (event.target as HTMLInputElement).value;
   }
 
   createDataTable(values: [], labels: []): DataTableItem[] {
