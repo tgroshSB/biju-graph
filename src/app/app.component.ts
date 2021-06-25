@@ -1,11 +1,8 @@
-import { DataTableItem } from './data-table/data-table-datasource';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
-import { ChartOptions, ChartDataSets } from 'chart.js';
-import { Label } from 'ng2-charts';
 import { ChartDataService } from './chart-data.service';
+import { DataTableItem } from './data-table/data-table-datasource';
 
 @Component({
   selector: 'app-root',
@@ -13,14 +10,12 @@ import { ChartDataService } from './chart-data.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  public barChartOptions: ChartOptions = {
-    scales: { yAxes: [{ ticks: { beginAtZero: true } }] }
-  };
-  public barChartLabels: Label[] = [];
-  public barChartData: ChartDataSets[] = [{ data: [], label: '' }];
-
   public currentDataSource: string = "";
   public dataTable: DataTableItem[] = [];
+
+  public chartData: any[];
+  public chartSeriesLabel: string;
+  public chartAxisLabels: string[];
 
   constructor(private chartDataService: ChartDataService) {
   }
@@ -32,15 +27,18 @@ export class AppComponent implements OnInit {
   onDataSelectChange(event: MatSelectChange) {
     if (event.value) {
       this.chartDataService.getData(event.value).subscribe(
-        data => {
-          this.barChartData = [{ data: data.data, label: data.seriesLabel }];
-          this.barChartLabels = data.axisLabels;
-          this.dataTable = this.createDataTable(data.data, data.axisLabels);
+        response => {
+          this.chartData = response.data;
+          this.chartSeriesLabel = response.seriesLabel;
+          this.chartAxisLabels = response.axisLabels;
+          this.dataTable = this.createDataTable(response.data, response.axisLabels);
         },
         (err: HttpErrorResponse) => {
           console.log(err.message);
-          this.barChartData = [{ data: [], label: '' }];
-          this.barChartLabels = [];
+          this.chartData = []
+          this.chartSeriesLabel = '';
+          this.chartAxisLabels = [];
+          this.dataTable = [];
         }
       );
     }

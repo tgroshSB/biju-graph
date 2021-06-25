@@ -11,11 +11,8 @@
     </mat-select>
   </mat-form-field>
 
-  <div *ngIf="currentDataSource" style="display: block; width: 640px;">
-    <canvas baseChart chartType="bar" [legend]="true" [datasets]="barChartData" [labels]="barChartLabels"
-      [options]="barChartOptions">
-    </canvas>
-  </div>
+  <app-chart *ngIf="currentDataSource" [data]="chartData" [seriesLabel]="chartSeriesLabel"
+    [axisLabels]="chartAxisLabels"></app-chart>
 
   <app-data-table *ngIf="currentDataSource" [data]="dataTable"></app-data-table>
 </mat-card>
